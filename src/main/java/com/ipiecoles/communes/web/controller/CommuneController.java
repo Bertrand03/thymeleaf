@@ -18,6 +18,7 @@ public class CommuneController {
 
     @Autowired
     private CommuneRepository communeRepository;
+
     @GetMapping("/communes/{codeInsee}")
     public String getCommune(
             @PathVariable String codeInsee,
@@ -29,9 +30,28 @@ public class CommuneController {
     }
 
     @PostMapping(value = "/communes", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveNewCommune(Commune commune){
+    public String saveNewCommune(Commune commune, final ModelMap model){
+        //Ajouter un certain nombre de contrôles...
+        commune = communeRepository.save(commune);
+        model.put("commune", commune);
+        return "detail";
+    }
 
-        return  null;
+    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String saveExistingCommune(
+            Commune commune,
+            @PathVariable String codeInsee,
+            final ModelMap model){
+        //Ajouter un certain nombre de contrôles...
+        commune = communeRepository.save(commune);
+        model.put("commune", commune);
+        return "detail";
+    }
+
+    @GetMapping("/communes/new")
+    public String newCommune(final ModelMap model){
+        model.put("commune", new Commune());
+        return "detail";
     }
 
 }
