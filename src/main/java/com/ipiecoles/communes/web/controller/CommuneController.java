@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller // A ne pas confondre avec le RestController
+//@RequestMapping("/communes") // Pour éviter de remettre "communes" partout en debut d'url
 public class CommuneController {
 
     private static final double DEGRE_LAT_KM = 111d;
@@ -45,7 +46,7 @@ public class CommuneController {
         //Ajouter un certain nombre de contrôles...
         commune = communeRepository.save(commune);
         model.put("commune", commune);
-        return "detail";
+        return "redirect:/communes/" + commune.getCodeInsee();
     }
 
     @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -55,15 +56,23 @@ public class CommuneController {
             final ModelMap model){
         //Ajouter un certain nombre de contrôles...
         commune = communeRepository.save(commune);
-        model.put("commune", commune);
-        return "detail";
+        return "redirect:/communes/" + commune.getCodeInsee();
     }
 
     @GetMapping("/communes/new")
-    public String newCommune(final ModelMap model){
+    public String newCommune(
+            final ModelMap model){
         model.put("commune", new Commune());
         model.put("newCommune", true);
         return "detail";
+    }
+
+    @GetMapping("/communes/{codeInsee}/delete")
+    public String deleteCommune(
+            @PathVariable String codeInsee)
+    {
+        communeRepository.deleteById(codeInsee);
+        return "redirect:/";
     }
 
     /**

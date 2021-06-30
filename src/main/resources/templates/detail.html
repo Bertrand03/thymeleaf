@@ -96,7 +96,8 @@
                     <div class="col-sm-12 mt-2 text-center">
                         <div class="col-sm-12 mt-2 text-center">
                             <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
-                            <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>
+                            <!--<a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>-->
+                            <a th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a>
                         </div>
                     </div>
                 </form>
