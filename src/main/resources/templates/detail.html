@@ -60,7 +60,7 @@
                             <div class="form-group">
                                 <label for="nom">Nom</label>
 
-                                <input type="text" value="Andert Et Condon" class="form-control is-valid" name="nom"
+                                <input type="text" th:value="${commune.nom}" class="form-control is-valid" name="nom"
                                        id="nom">
 
                             </div>
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="codePostal">Code Postal</label>
 
-                                <input type="text" value="01300" class="form-control is-valid" name="codePostal"
+                                <input type="text" th:value="${commune.codePostal}" class="form-control is-valid" name="codePostal"
                                        id="codePostal">
 
                             </div>
@@ -78,7 +78,7 @@
                             <div class="form-group">
                                 <label for="latitude">Latitude</label>
 
-                                <input type="text" value="45.7873565333" class="form-control is-valid" name="latitude"
+                                <input type="text" th:value="${commune.latitude}" class="form-control is-valid" name="latitude"
                                        id="latitude">
 
                             </div>
@@ -87,7 +87,7 @@
                             <div class="form-group">
                                 <label for="longitude">Longitude</label>
 
-                                <input type="text" value="5.65788307924" class="form-control is-valid" name="longitude"
+                                <input type="text" th:value="${commune.longitude}" class="form-control is-valid" name="longitude"
                                        id="longitude">
 
                             </div>
@@ -96,13 +96,14 @@
                     <div class="col-sm-12 mt-2 text-center">
                         <div class="col-sm-12 mt-2 text-center">
                             <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
-                            <!--<a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>-->
-                            <a th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a>
+                            <span th:unless="${newCommune}">
+                                <a th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a>
+                            </span>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" th:unless="${newCommune}">
                 <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&layer=mapnik&marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>
             </div>
             <div class="col-sm-12 text-center mt-2" th:unless="${newCommune}">
