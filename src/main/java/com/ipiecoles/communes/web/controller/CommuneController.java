@@ -34,6 +34,7 @@ public class CommuneController {
         }
         //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
+        model.put("perimetre", perimetre);
         model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
         model.put("newCommune", false);
         return "detail";
