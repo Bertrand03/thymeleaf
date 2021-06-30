@@ -84,94 +84,13 @@
                 </thead>
                 <tbody>
 
-                <tr>
-                    <th scope="row">01009</th>
-                    <td>01300</td>
-                    <td>Andert Et Condon</td>
-                    <td>45.7873565333</td>
-                    <td>5.65788307924</td>
-                    <td><a href="/communes/01009">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01011</th>
-                    <td>01100</td>
-                    <td>Apremont</td>
-                    <td>46.2054981558</td>
-                    <td>5.65781475272</td>
-                    <td><a href="/communes/01011">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01012</th>
-                    <td>01110</td>
-                    <td>Aranc</td>
-                    <td>46.0015344029</td>
-                    <td>5.51130637511</td>
-                    <td><a href="/communes/01012">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01021</th>
-                    <td>01480</td>
-                    <td>Ars Sur Formans</td>
-                    <td>45.9934611</td>
-                    <td>4.82199649494</td>
-                    <td><a href="/communes/01021">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01023</th>
-                    <td>01570</td>
-                    <td>Asnieres Sur Saone</td>
-                    <td>46.3857281418</td>
-                    <td>4.88387478623</td>
-                    <td><a href="/communes/01023">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01028</th>
-                    <td>01990</td>
-                    <td>Baneins</td>
-                    <td>46.1141214445</td>
-                    <td>4.90146475101</td>
-                    <td><a href="/communes/01028">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01029</th>
-                    <td>01270</td>
-                    <td>Beaupont</td>
-                    <td>46.4288360203</td>
-                    <td>5.26003405676</td>
-                    <td><a href="/communes/01029">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01031</th>
-                    <td>01100</td>
-                    <td>Bellignat</td>
-                    <td>46.2373497134</td>
-                    <td>5.6360052884</td>
-                    <td><a href="/communes/01031">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01032</th>
-                    <td>01360</td>
-                    <td>Beligneux</td>
-                    <td>45.8591464826</td>
-                    <td>5.13989505865</td>
-                    <td><a href="/communes/01032">Détail</a></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">01033</th>
-                    <td>01200</td>
-                    <td>Valserhone</td>
-                    <td>46.1067901755</td>
-                    <td>5.83202736464</td>
-                    <td><a href="/communes/01033">Détail</a></td>
+                <tr th:each="commune : ${communes}">
+                    <th scope="row" th:text="${commune.codeInsee}">01033</th>
+                    <td th:text="${commune.codePostal}"}>01200</td>
+                    <td th:text="${commune.nom}">Valserhone</td>
+                    <td th:text="${commune.latitude}">46.1067901755</td>
+                    <td th:text="${commune.longitude}">5.83202736464</td>
+                    <td><a href="|/communes/${commune.codeInsee}|">Détail</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -198,7 +117,13 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
 
-                            <li class="page-item">
+                            <li class="page-item disabled" th:if="${communes.isFirst()}">
+                                <a class="page-link" href="#"
+                                >
+                                    &laquo;
+                                </a>
+                            </li>
+                            <li class="page-item" th:unless="${communes.isFirst()}">
                                 <a class="page-link" href="/?page=-1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty="
                                 >
                                     &laquo;
@@ -239,8 +164,9 @@
                                     <input type="hidden" name="search" value="">
                                 </form>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="/?page=1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty=">
+                            <li class="page-item"> <!--bouton suivant pagination-->
+                                <a class="page-link" href="/?page=1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty="
+                                                     >
                                     &raquo;
                                 </a>
                             </li>

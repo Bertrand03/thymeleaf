@@ -17,6 +17,8 @@ public interface CommuneRepository extends JpaRepository<Commune, String> {
     @Query("select count(distinct c.nom) from Commune c")
     long countDistinctAllCommunes();
 
+    List<Commune> findByLatitudeBetweenAndLongitudeBetween(Double latMin, Double latMax, Double longMin, Double longMax);
+
 
 
 
