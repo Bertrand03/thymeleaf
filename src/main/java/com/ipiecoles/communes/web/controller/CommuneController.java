@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +25,17 @@ public class CommuneController {
     @GetMapping("/communes/{codeInsee}")
     public String getCommune(
             @PathVariable String codeInsee,
+            @RequestParam(defaultValue = "10") Integer perimetre,
             final ModelMap model)
     {
         Optional<Commune> commune = communeRepository.findById(codeInsee);
+        if(commune.isEmpty()){
+            //Gère une exception
+        }
+        //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
+        model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
+        model.put("newCommune", false);
         return "detail";
     }
 
