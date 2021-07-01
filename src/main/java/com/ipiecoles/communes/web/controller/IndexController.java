@@ -47,6 +47,8 @@ public class IndexController {
         model.put("end", 10);//A remplacer par la valeur dynamique
         model.put("page", page);
 
-        return "listeCommunes";
+        model.put("template", "listeCommunes");
+        model.put("fragment", "listCom");
+        return "main";
     }
 }

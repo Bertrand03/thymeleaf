@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: head('Liste des communes')"></head> <!-- On cible l'endroit (arborescence) où se trouve le fragment, on l'insère grâce au :: et on nomme le fragment-->
+<!--<head th:replace="fragments/header :: head('Liste des communes')"></head> &lt;!&ndash; On cible l'endroit (arborescence) où se trouve le fragment, on l'insère grâce au :: et on nomme le fragment&ndash;&gt;-->
 
 <body>
 
-<div th:replace="fragments/header :: navbar"></div>
+<!--<div th:replace="fragments/header :: navbar"></div>-->
 
 
-<div class="container">
+<div class="container" th:fragment="listCom">
     <h2>Liste des communes </h2>
     <div class="row">
         <div class="col-lg-12">
