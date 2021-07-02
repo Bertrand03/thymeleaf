@@ -7,8 +7,14 @@
 
 
 <div>
-    <div class="container">
-        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>
+    <div class="container" th:fragment="fragDetail">
+        <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
+            <span th:utext="${message}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
         <!--<h2 th:unless="${commune.codeInsee == null}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
         <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>
 
