@@ -102,9 +102,11 @@ public class CommuneController {
             @PathVariable String codeInsee,
             RedirectAttributes attributes)
     {
+
+        Commune commune = communeRepository.findCommuneByCodeInsee(codeInsee);
         communeRepository.deleteById(codeInsee);
         attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Suppression de la commune effectuée");
+        attributes.addFlashAttribute("message", "Suppression de la commune " + commune.getNom() + " effectuée");
         return "redirect:/";
     }
 

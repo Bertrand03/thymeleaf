@@ -26,6 +26,7 @@ public class IndexController {
                                  @RequestParam(defaultValue = "ASC") String sortDirection,
                                  @RequestParam(required = false) String search,
                                  final ModelMap model) {
+
         model.put("nbCommunes", communeRepository.count());
         //Constituer un PageRequest
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortProperty);
@@ -52,6 +53,7 @@ public class IndexController {
 
         model.put("template", "listeCommunes");
         model.put("fragment", "listCom");
+        model.put("fragmentCol", "fragCol");
 
         model.put("templateDetail", "detail");
         model.put("fragmentDetail", "fragDetail");

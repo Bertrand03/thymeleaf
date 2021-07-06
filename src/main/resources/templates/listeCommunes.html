@@ -22,49 +22,49 @@
                 <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
             </div>
             <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">
-                        <div th:switch="sortProperty == ${codeInsee}">
-                            <span th:case="'DESC'">
-                                Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee"><i class="fa fa-chevron-up|"></i></a> <!-- ligne code original-->
-                            </span>
-                            <span th:case="'*'">
-                                Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee"><i class="fa fa-chevron-up|"></i></a> <!-- ligne code original-->
-                            </span>
-                                <!--Code Insee <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee"><i class="fa fa-chevron-down"></i></a>-->
-                                <!--Code Insee <a href="/?page=&search=&size=&sortDirection=DESC&sortProperty=codeInsee"><i class="fa fa-chevron-up"></i></a>-->
-                                <!--<a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee">Code Insee</a>-->
+                <thead th:fragment="fragCol">
+                    <tr>
+                        <th scope="col">
+                            <div th:switch="sortProperty == ${codeInsee}">
+                                <span th:case="'DESC'">
+                                    Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee"><i class="fa fa-chevron-up|"></i></a> <!-- ligne code original-->
+                                </span>
+                                <span th:case="'*'">
+                                    Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee"><i class="fa fa-chevron-up|"></i></a> <!-- ligne code original-->
+                                </span>
+                                    <!--Code Insee <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee"><i class="fa fa-chevron-down"></i></a>-->
+                                    <!--Code Insee <a href="/?page=&search=&size=&sortDirection=DESC&sortProperty=codeInsee"><i class="fa fa-chevron-up"></i></a>-->
+                                    <!--<a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee">Code Insee</a>-->
 
-                        </div>
+                            </div>
 
-                    </th>
-                    <th scope="col">
+                        </th>
+                        <th scope="col">
 
-                        <div>
-                            <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codePostal">Code Postal</a>
-                        </div>
-                    </th>
-                    <th scope="col">
+                            <div>
+                                <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codePostal">Code Postal</a>
+                            </div>
+                        </th>
+                        <th scope="col">
 
-                        <div>
-                            <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=nom">Nom</a>
-                        </div>
-                    </th>
-                    <th scope="col">
+                            <div>
+                                <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=nom">Nom</a>
+                            </div>
+                        </th>
+                        <th scope="col">
 
-                        <div>
-                            <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=latitude">Latitude</a>
-                        </div>
-                    </th>
-                    <th scope="col">
+                            <div>
+                                <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=latitude">Latitude</a>
+                            </div>
+                        </th>
+                        <th scope="col">
 
-                        <div>
-                            <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=longitude">Longitude</a>
-                        </div>
-                    </th>
-                    <th scope="col"></th>
-                </tr>
+                            <div>
+                                <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=longitude">Longitude</a>
+                            </div>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
                 </thead>
                 <tbody>
 
@@ -75,6 +75,7 @@
                     <td th:text="${commune.latitude}">46.1067901755</td>
                     <td th:text="${commune.longitude}">5.83202736464</td>
                     <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
+                    <td><a class="btn btn-danger" th:href="|/communes/${commune.codeInsee}/delete|">Supprimer</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -82,24 +83,11 @@
                 <div class="col-lg-5">
                     <form action="/" method="get" class="form-inline">
                         <label for="pageSizePicker">Taille des pages&nbsp;</label>
-                        <select name="size" id="pageSizePicker" class="custom-select"
-                                onchange="javascript:this.form.submit()">
-                            <option value="5">5</option>
-                            <option value="10"
-                                    selected="selected">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
+
 
                         <select name="size" id="pageSizePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
-                            <option th:each="page : ${pageSizes}" th:if="${#strings.equals(${page}, 20)}" th:selected="true">[[${page}]]</option>
-                            <!--<option value="10"-->
-                                    <!--selected="selected"></option>-->
-                            <!--<option value="20">20</option>-->
-                            <!--<option value="50">50</option>-->
-                            <!--<option value="100">100</option>-->
+                            <option th:each="pageSize : ${pageSizes}" th:selected="${pageSize == size}">[[${pageSize}]]</option>
                         </select>
 
                         <input type="hidden" name="sortDirection" value="">

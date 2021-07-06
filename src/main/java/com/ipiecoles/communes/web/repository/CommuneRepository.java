@@ -20,7 +20,13 @@ public interface CommuneRepository extends JpaRepository<Commune, String> {
     long countDistinctAllCommunes();
 
     List<Commune> findByLatitudeBetweenAndLongitudeBetween(Double latMin, Double latMax, Double longMin, Double longMax);
-    Page findByNomContainingIgnoreCase(String search, PageRequest pageRequest); // A redefinir
+
+    Page <Commune> findByNomContainingIgnoreCase(String search, PageRequest pageRequest); // A redefinir
+
+    List<Commune> findCommuneByNom(String nom);
+    Commune findCommuneByCodeInsee(String codeInsee);
+
+
 
 
 
