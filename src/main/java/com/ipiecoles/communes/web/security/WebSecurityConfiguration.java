@@ -1,11 +1,14 @@
 package com.ipiecoles.communes.web.security;
 
+import com.ipiecoles.communes.web.service.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 //Annotation pour que Spring prenne en compte les éléments de configuration définis
@@ -14,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    //TODO implémenter notre propre service !!
-    private UserDetailsService userDetailsService;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -27,7 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private PasswordEncoder passwordEncoder() {
-        return null;
+        // Algo BCrypt
+        return new BCryptPasswordEncoder();
     }
 
     @Override
