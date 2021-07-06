@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -44,10 +46,6 @@ public class CommuneController {
         model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
         model.put("newCommune", false);
 
-        model.put("templateDetail", "detail");
-        model.put("fragmentDetail", "fragDetail");
-
-
         return "detail";
     }
 
@@ -63,20 +61,32 @@ public class CommuneController {
 
     @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveExistingCommune(
-            Commune commune,
+            @Valid Commune commune,
+            //Juste après le paramètre marqué @Valid
+            final BindingResult result,
             @PathVariable String codeInsee,
             final ModelMap model,
             RedirectAttributes attributes){
         //Ajouter un certain nombre de contrôles...
-        commune = communeRepository.save(commune);
+        // S'il n'y a pas d'erreur de validation sur le paramètre commune
+        if (!result.hasErrors()) {
+            commune = communeRepository.save(commune);
 
-        if (commune.getCodeInsee().isEmpty()){
-            throw new EntityNotFoundException("Le code INSEE de la commune est obligatoire");
+            if (commune.getCodeInsee().isEmpty()) {
+                throw new EntityNotFoundException("Le code INSEE de la commune est obligatoire");
+            }
+
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Modification de la commune " + commune.getNom() + " effectuée !");
+            return "redirect:/communes/" + commune.getCodeInsee();
         }
-
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Modification de la commune " + commune.getNom() + "effectuée !");
-        return "redirect:/communes/" + commune.getCodeInsee();
+        //S'il y a des erreurs...
+        //Possibilité 1 : Rediriger l'utilisateur vers la page générique d'erreur
+        //Possibilité 2 : Laisse sur la même page en affichant les erreurs pour chaque champ
+        model.addAttribute("type", "danger");
+        model.addAttribute("message", "Erreur lors de la sauvegarde de la commune");
+        // TODO - Utiliser les getFieldsError pour préciser les erreurs
+        return "detail";
     }
 
     @GetMapping("/communes/new")

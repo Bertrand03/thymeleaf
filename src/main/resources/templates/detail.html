@@ -27,18 +27,26 @@
                             <div class="form-group">
                                 <label for="codeInsee">Code INSEE</label>
 
-                                <input type="text" th:value="${commune.codeInsee}" class="form-control is-valid" name="codeInsee"
+                                <input type="text" th:value="${commune.codeInsee}"
+                                                   th:class="|form-control ${#fields.hasErrors('commune.codeInsee')? 'is-invalid' : 'is-valid'}|" name="codeInsee"
                                        id="codeInsee">
-
+                                <div class="invalid-feedback">
+                                    <ul>
+                                        <li th:errors="${commune.codeInsee}"></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-
-                                <input type="text" th:value="${commune.nom}" class="form-control is-valid" name="nom"
+                                <input type="text" th:value="${commune.nom}" th:class="|form-control ${#fields.hasErrors('commune.nom') ? 'is-invalid' : 'is-valid'}|" name="nom"
                                        id="nom">
-
+                                <div class="invalid-feedback">
+                                    <ul>
+                                        <li th:errors="${commune.nom}"></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div>

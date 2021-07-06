@@ -39,16 +39,23 @@ public class IndexController {
         }
         model.put("communes", communes);
         model.put("nbCommunes", communes.getTotalElements());
-        model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100"));
+//        model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100"));
+        model.put("pageSizes", Arrays.asList(5, 10, 20, 50, 100));
         //Affichage des communes de 1 à 10 => page = 0 et size = 10
         //Affichage des communes de 11 à 20 => page = 1 et size = 10
         //Affichage des communes de 41 à 60 => page = 2 et size = 20
         model.put("start", 1);//A remplacer par la valeur dynamique
         model.put("end", 10);//A remplacer par la valeur dynamique
         model.put("page", page);
+        model.put("size", size);
+
 
         model.put("template", "listeCommunes");
         model.put("fragment", "listCom");
+
+        model.put("templateDetail", "detail");
+        model.put("fragmentDetail", "fragDetail");
+
         return "main";
     }
 }
