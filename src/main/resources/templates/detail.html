@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: head('Détails de la commune')"></head> <!-- On cible l'endroit (arborescence) où se trouve le fragment, on l'insère grâce au :: et on nomme le fragment-->
 <body>
 
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 mt-2 text-center">
+                    <div class="col-sm-12 mt-2 text-center" sec:authorize="hasRole('ADMIN')">
                         <div class="col-sm-12 mt-2 text-center">
                             <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
                             <span th:unless="${newCommune}">

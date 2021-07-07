@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <!--<head th:replace="fragments/header :: head('Liste des communes')"></head> &lt;!&ndash; On cible l'endroit (arborescence) où se trouve le fragment, on l'insère grâce au :: et on nomme le fragment&ndash;&gt;-->
 
@@ -18,7 +18,7 @@
     <h2>Liste des communes </h2>
     <div class="row">
         <div class="col-lg-12">
-            <div class="btn-group">
+            <div class="btn-group" sec:authorize="hasRole('ADMIN')">
                 <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
             </div>
             <table class="table table-hover table-striped">
@@ -75,7 +75,7 @@
                     <td th:text="${commune.latitude}">46.1067901755</td>
                     <td th:text="${commune.longitude}">5.83202736464</td>
                     <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
-                    <td><a class="btn btn-danger" th:href="|/communes/${commune.codeInsee}/delete|">Supprimer</a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger" th:href="|/communes/${commune.codeInsee}/delete|">Supprimer</a></td>
                 </tr>
                 </tbody>
             </table>

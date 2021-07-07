@@ -4,6 +4,8 @@ import com.ipiecoles.communes.web.model.Commune;
 import com.ipiecoles.communes.web.repository.CommuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,10 @@ public class CommuneController {
     @Autowired
     private CommuneRepository communeRepository;
 
+    //Accessible uniquement aux utilisateurs connectés
+    //@PreAuthorize("isAuthenticated()") // 2e solution de security - Sera à mettre à chaque méthode souhaitée
+//    Accessible uniquement à un rôle particulier
+    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/communes/{codeInsee}")
     public String getCommune(
             @PathVariable String codeInsee,
