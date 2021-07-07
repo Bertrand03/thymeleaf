@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Inscription')"></head>
+<body>
+
+<div th:replace="fragments/header :: navbar"></div>
+
+    <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
+        <span th:utext="${message}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+<div class="container">
+    <h2>S'inscrire</h2>
+    <!--        Formulaire avec attribut action /register avec méthode post-->
+    <form th:action="@{/register}" method="post">
+        <!--        Champ username-->
+        <div class="form-group">
+            <label for="userName">Nom</label>
+            <input type="text" id="userName" name="userName" placeholder="Nom d'utilisateur"
+                   th:class="|form-control ${#fields.hasErrors('user.userName') ? 'is-invalid' : 'is-valid'}|">
+            <div class="invalid-feedback">
+                <ul>
+                    <li th:errors="${user.userName}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <!--        Champ password-->
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="text" id="password" name="password" placeholder="Mot de passe"
+                   th:class="|form-control ${#fields.hasErrors('user.password') ? 'is-invalid' : 'is-valid'}|">
+            <div class="invalid-feedback">
+                <ul>
+                    <li th:errors="${user.password}"></li>
+                </ul>
+            </div>
+        </div>
+        <!--&lt;!&ndash;        Champ vérification password&ndash;&gt;-->
+        <!--<div class="form-group">-->
+            <!--<label for="passwordCheck">Confirmez votre mot de passe</label>-->
+            <!--<input type="password" placeholder="Confirmation mot de passe" id="passwordCheck" name="password" class="form-control">-->
+        <!--</div>-->
+        <!--        Champ email-->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email"
+                   th:class="|form-control ${#fields.hasErrors('user.email') ? 'is-invalid' : 'is-valid'}|">
+            <div class="invalid-feedback">
+                <ul>
+                    <li th:errors="${user.email}"></li>
+                </ul>
+            </div>
+        </div>
+        <!--        Champ name-->
+        <div class="form-group">
+            <label for="name">Prénom</label>
+            <input type="text" id="name" name="name" placeholder="Prénom"
+                   th:class="|form-control ${#fields.hasErrors('user.name') ? 'is-invalid' : 'is-valid'}|">
+            <div class="invalid-feedback">
+                <ul>
+                    <li th:errors="${user.name}"></li>
+                </ul>
+            </div>
+        </div>
+        <!--        Champ lastname-->
+        <div class="form-group">
+            <label for="lastName">Nom</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Nom"
+                   th:class="|form-control ${#fields.hasErrors('user.lastName') ? 'is-invalid' : 'is-valid'}|">
+            <div class="invalid-feedback">
+                <ul>
+                    <li th:errors="${user.lastName}"></li>
+                </ul>
+            </div>
+        </div>
+        <!--        Bouton submit-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Inscription</button>
+    </form>
+</div>
+</body>
+
+</html>

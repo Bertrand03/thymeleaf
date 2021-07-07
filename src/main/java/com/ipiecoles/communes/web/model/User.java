@@ -1,6 +1,10 @@
 package com.ipiecoles.communes.web.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,14 +16,24 @@ public class User {
     private Integer id;
 
     @Column(nullable = false, unique = true)
+    @Length(min = 5, max = 50)
+    @NotBlank
     private String userName;
 
+    @Email
+    @NotBlank
     private String email;
 
+    @Length(min = 8)
+    @NotBlank
     private String password;
 
+    @NotBlank
+    @Length(max = 50)
     private String name;
 
+    @NotBlank
+    @Length(max = 50)
     private String lastName;
 
     private Boolean active;

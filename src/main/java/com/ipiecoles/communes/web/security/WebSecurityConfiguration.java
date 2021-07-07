@@ -2,6 +2,7 @@ package com.ipiecoles.communes.web.security;
 
 import com.ipiecoles.communes.web.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -36,7 +37,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    private PasswordEncoder passwordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         // Algo BCrypt
         return new BCryptPasswordEncoder();
     }
@@ -46,8 +48,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //Il faudra également (pour la 2e solution) commenter le permitAll() ci-dessous
         http
                 .authorizeRequests()
-                //La page d'accueil / ...
-                .antMatchers("/")
+                //La page d'accueil / et d'inscription ...
+                .antMatchers("/", "/register")
                 //... est accessible à tous
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/communes/*")
@@ -86,4 +88,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/webjars/**");// * => /webjars/test.js ** => //webjars/test/test/test.js
     }
+
 }

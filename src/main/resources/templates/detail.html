@@ -22,6 +22,8 @@
             <div class="col-sm-12 col-lg-6">
 
                 <form id="saveForm" th:action="${newCommune} ? '/communes' : ('/communes/' + ${commune.codeInsee})" method="post">
+                    <!--L'input ci-dessous empêche l'utilisation des droits de notre profil par un hacker (dans l'url par ex). Le token sécurise les informations.-->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="mt-2">
                         <div>
                             <div class="form-group">
