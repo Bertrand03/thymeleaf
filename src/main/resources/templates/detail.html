@@ -15,7 +15,6 @@
             </button>
         </div>
         <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
-        <!--<h2 th:unless="${commune.codeInsee == null}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
         <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>
 
         <div class="row">
@@ -28,9 +27,8 @@
                         <div>
                             <div class="form-group">
                                 <label for="codeInsee">Code INSEE</label>
-
-                                <input type="text" th:value="${commune.codeInsee}"
-                                                   th:class="|form-control ${#fields.hasErrors('commune.codeInsee')? 'is-invalid' : 'is-valid'}|" name="codeInsee"
+                                <input th:unless="${commune.codeInsee} != null" type="text" th:value="${commune.codeInsee}" th:class="|form-control primary|" name="codeInsee">
+                                <input th:if="${commune.codeInsee} != null" type="text" th:value="${commune.codeInsee}" th:class="|form-control ${#fields.hasErrors('commune.codeInsee') ? 'is-invalid' : 'is-valid'}|" name="codeInsee"
                                        id="codeInsee">
                                 <div class="invalid-feedback">
                                     <ul>
@@ -42,7 +40,8 @@
                         <div>
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" th:value="${commune.nom}" th:class="|form-control ${#fields.hasErrors('commune.nom') ? 'is-invalid' : 'is-valid'}|" name="nom"
+                                <input th:unless="${commune.nom} != null" type="text" th:value="${commune.nom}" th:class="|form-control|" name="nom">
+                                <input th:if="${commune.nom} != null" type="text" th:value="${commune.nom}" th:class="|form-control ${#fields.hasErrors('commune.nom') ? 'is-invalid' : 'is-valid'}|" name="nom"
                                        id="nom">
                                 <div class="invalid-feedback">
                                     <ul>
@@ -54,28 +53,40 @@
                         <div>
                             <div class="form-group">
                                 <label for="codePostal">Code Postal</label>
-
-                                <input type="text" th:value="${commune.codePostal}" class="form-control is-valid" name="codePostal"
+                                <input th:unless="${commune.codePostal != null}" type="text" th:value="${commune.codePostal}" th:class="|form-control|" name="codePostal">
+                                <input th:if="${commune.codePostal != null}"type="text" th:value="${commune.codePostal}" th:class="|form-control ${#fields.hasErrors('commune.codePostal') ? 'is-invalid' : 'is-valid'}|" name="codePostal"
                                        id="codePostal">
-
+                                <div class="invalid-feedback">
+                                    <ul>
+                                        <li th:errors="${commune.codePostal}"></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label for="latitude">Latitude</label>
-
-                                <input type="text" th:value="${commune.latitude}" class="form-control is-valid" name="latitude"
+                                <input th:unless="${commune.latitude} != null" type="text" th:value="${commune.latitude}" th:class="|form-control|" name="latitude">
+                                <input th:if="${commune.latitude} != null" type="text" th:value="${commune.latitude}" th:class="|form-control ${#fields.hasErrors('commune.latitude') ? 'is-invalid' : 'is-valid'}|" name="latitude"
                                        id="latitude">
-
+                                <div class="invalid-feedback">
+                                    <ul>
+                                        <li th:errors="${commune.latitude}"></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label for="longitude">Longitude</label>
-
-                                <input type="text" th:value="${commune.longitude}" class="form-control is-valid" name="longitude"
+                                <input th:unless="${commune.longitude} != null" type="text" th:value="${commune.longitude}" th:class="|form-control|" name="longitude">
+                                <input th:if="${commune.longitude != null}" type="text" th:value="${commune.longitude}" th:class="|form-control ${#fields.hasErrors('commune.longitude') ? 'is-invalid' : 'is-valid'}|" name="longitude"
                                        id="longitude">
-
+                                <div class="invalid-feedback">
+                                    <ul>
+                                        <li th:errors="${commune.longitude}"></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

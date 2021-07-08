@@ -31,12 +31,18 @@ public class IndexController {
         //Constituer un PageRequest
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortProperty);
         Page<Commune> communes;
+        Commune communeCodeInsee = new Commune();
         if(search == null || search.isEmpty()){
             //Appeler findAll si search est null
             communes = communeRepository.findAll(pageRequest);
         } else {
             //Appeler findByNomContainingIgnoreCase si search n'est pas null
+            if (search.length() == 5){
+                communeCodeInsee = communeRepository.findCommuneByCodeInsee(search);
+
+            }
             communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
+
         }
         model.put("communes", communes);
         model.put("nbCommunes", communes.getTotalElements());
@@ -49,15 +55,13 @@ public class IndexController {
         model.put("end", 10);//A remplacer par la valeur dynamique
         model.put("page", page);
         model.put("size", size);
+        model.put("communeCodeInsee", communeCodeInsee);
 
 
         model.put("template", "listeCommunes");
         model.put("fragment", "listCom");
-        model.put("fragmentCol", "fragCol");
-
-        model.put("templateDetail", "detail");
-        model.put("fragmentDetail", "fragDetail");
 
         return "main";
+//        return "listeCommunes";
     }
 }

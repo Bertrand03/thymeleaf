@@ -25,6 +25,7 @@ public interface CommuneRepository extends JpaRepository<Commune, String> {
 
     List<Commune> findCommuneByNom(String nom);
     Commune findCommuneByCodeInsee(String codeInsee);
+//    Page <Commune> findCommuneByCodeInsee(String codeInsee);
 
 
 
