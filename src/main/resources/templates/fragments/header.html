@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--Fragment head-->
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
@@ -29,13 +29,21 @@
 
             <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
                 <div class="form-group">
-                    <input name="search" th:value="${valeurRecherche}" class="form-control" placeholder="Rechercher..." type="text">
+                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
                 </div>
                 <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
             </form>
-            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Connexion</a>
-            <a href="/register" class="btn btn-outline-primary ml-2 my-2 my-sm-0">Inscription</a>
-
+            <div sec:authorize="!isAuthenticated()">
+                <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Connexion</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a href="/logout" class="btn btn-outline-danger ml-2 my-2 my-sm-0">Déconnexion</a>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <a href="/register" class="btn btn-outline-primary ml-2 my-2 my-sm-0">Inscription</a>
+                </form>
+            </div>
         </div>
     </nav>
 </div>

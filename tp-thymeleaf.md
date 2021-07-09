@@ -46,7 +46,7 @@
 - [x] Afficher un message de succès lors de la sauvegarde d'une commune
 - [x] Afficher un message de succès suite à la suppression d'une commune
 - [x] Afficher un message de succès suite à la création d'une commune
-- [ ] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
+- [x] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
 
 # Validation
 - [x] Mettre en place la validation avec les règles adéquates sur les champs code Insee (obligatoire, 5 chiffres et le deuxième caractère peut 

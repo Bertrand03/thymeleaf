@@ -30,12 +30,23 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String login(final ModelMap model,
-                        RedirectAttributes attributes
-                        ){
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Connexion réussie");
+    public String login(ModelMap model){
+        model.put("test", "connected");
+
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(ModelMap model){
+        model.put("test", "disconnected");
+        return "logout";
+    }
+
+    @PostMapping("/logout")
+    public String msgAfterLogout(RedirectAttributes attributes) {
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Déconnexion réussie");
+        return "redirect:/";
     }
 
     @GetMapping("/successfulConnection")

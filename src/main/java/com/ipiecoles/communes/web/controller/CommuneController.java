@@ -149,7 +149,6 @@ public class CommuneController {
             longMin = commune.getLongitude() - degreLong;
             longMax = commune.getLongitude() + degreLong;
             List<Commune> communesProches = communeRepository.findByLatitudeBetweenAndLongitudeBetween(latMin, latMax, longMin, longMax);
-            ;
             return communesProches.stream().
                     filter(commune1 -> !commune1.getNom().equals(commune.getNom()) && commune1.getDistance(commune.getLatitude(), commune.getLongitude()) <= perimetreEnKm).
                     sorted(Comparator.comparing(o -> o.getDistance(commune.getLatitude(), commune.getLongitude()))).
