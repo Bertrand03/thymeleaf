@@ -115,7 +115,7 @@
 
                 <!--activé pour les autres pages-->
                 <li class="page-item" th:unless="${communes.isFirst()}">
-                    <a class="page-link" th:href="|/?page=${page-1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|">
+                    <a class="page-link" th:href="|/?size=${size}&sortDirection=&sortProperty=&search=&page=${page-1}|">
                         &laquo;
                     </a>
                 </li>
@@ -125,7 +125,7 @@
                     <form action="/" method="get">
                         <select name="page" id="pagePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
-                            <option th:each="nbPage : ${#numbers.sequence(1,24,1)}" th:value="${nbPage} - 1" th:selected="${nbPage == page + 1}">Page [[${nbPage}]]</option>
+                            <option th:each="nbPage : ${#numbers.sequence(1,{@communeRepository.count()/size},1)}" th:value="${nbPage} - 1" th:selected="${nbPage == page + 1}">Page [[${nbPage}]]</option>
                         </select>
                         <input type="hidden" name="sortDirection" th:value="${sortDirection}">
                         <input type="hidden" name="sortProperty" th:value="${sortProperty}">
@@ -142,7 +142,8 @@
                 </li>
                 <!--activé pour les autres pages-->
                 <li class="page-item" th:unless="${communes.isLast()}">
-                    <a class="page-link" th:href="|/?page=${page+1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|">
+                    <!--<a class="page-link" th:href="|/?page=${page+1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|">-->
+                    <a class="page-link" th:href="|/?size=${size}&sortDirection=&sortProperty=&search=&page=${page+1}|">
                         &raquo;
                     </a>
                 </li>
